@@ -14,7 +14,14 @@ export const fetchExchangeRate = async (from: string, to: string) => {
   }
 };
 
+
 export const fetchMarketNews = async () => {
-  // Implement your news API call here
+  try {
+    const response = await axios.get('https://newsapi.org/v2/everything?q=market&apiKey=' + API_KEY);
+    return response.data.articles;
+  } catch (error) {
+    console.error('Error fetching market news:', error);
+    throw error;
+  }
   return [];
 };

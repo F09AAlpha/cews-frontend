@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['your-image-domain.com'], // Add domains for your images
+    domains: ['gizmodo.com','ichef.bbci.co.uk',"platform.theverge.com"], // Add domains for your images
   },
 }
 
