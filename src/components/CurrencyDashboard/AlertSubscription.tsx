@@ -86,13 +86,12 @@ export const AlertSubscription: React.FC<AlertSubscriptionProps> = ({
 
   return (
     <div className="mt-12 text-center px-4 py-8 bg-gradient-to-b from-[#2a2a40]/50 to-[#2a2a40]/10 rounded-3xl">
-      <h2 className="text-2xl text-white font-semibold mb-4">
-        Waiting on a better rate?
-      </h2>
-      <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-        Set an alert now, and we&apos;ll tell you when it gets better. And with our daily summaries,
-        you&apos;ll never miss out on the latest news.
-      </p>
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold text-white mb-1">Rate Alerts</h2>
+        <p className="text-gray-300 text-sm max-w-2xl mx-auto">
+          Get notified when exchange rates reach your desired levels so you never miss the perfect opportunity
+        </p>
+      </div>
       
       <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-4">
         {/* Display Selected Currencies */}

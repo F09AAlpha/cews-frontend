@@ -152,7 +152,12 @@ export const MarketNews: React.FC<MarketNewsProps> = ({ fromCurrency, toCurrency
 
   return (
     <div className="bg-[#2a2a40] rounded-2xl p-6 h-full flex flex-col">
-      <h2 className="text-white text-xl font-semibold mb-4">Market News</h2>
+      <div className="mb-5">
+        <h2 className="text-2xl font-bold text-white mb-1">Market News</h2>
+        <p className="text-gray-300 text-sm">
+          Latest financial news affecting global currency markets
+        </p>
+      </div>
       
       {isLoading ? (
         <div className="flex-1 space-y-4">

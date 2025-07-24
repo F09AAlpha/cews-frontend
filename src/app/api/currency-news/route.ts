@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     // Step 1: If in fetch mode, trigger Alpha Vantage fetch and return immediately
     if (mode === 'fetch') {
       // Construct URL for the trigger endpoint
-      const fetchUrl = new URL(`https://cews-backend.onrender.com/api/v1/currency/${cleanCurrency}`);
+      const fetchUrl = new URL(`http://localhost:8000/api/v1/currency/${cleanCurrency}`);
       
       // Don't include limit parameter in the URL - it isn't needed based on your screenshot
       console.log(`Triggering Alpha Vantage fetch for ${cleanCurrency}: ${fetchUrl.toString()}`);

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Make the request from the server side to avoid CORS issues
-    const apiUrl = `https://cews-backend.onrender.com/api/v1/analytics/volatility/${base}/${target}?days=${days}`;
+    const apiUrl = `http://localhost:8000/api/v1/analytics/volatility/${base}/${target}?days=${days}`;
     
     console.log(`Fetching volatility data from: ${apiUrl}`);
     

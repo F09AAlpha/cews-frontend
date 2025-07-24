@@ -17,7 +17,7 @@ async function handleAnomalyRequest(request: NextRequest) {
   
   try {
     // First try the anomaly-detection endpoint with POST
-    const apiUrl = `https://cews-backend.onrender.com/api/v2/analytics/anomaly-detection/`;
+    const apiUrl = `http://localhost:8000/api/v2/analytics/anomaly-detection/`;
     const method = 'POST';
     const body = JSON.stringify({ 
       base: base, 

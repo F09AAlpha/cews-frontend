@@ -830,7 +830,7 @@ export const fetchHistoricalExchangeRate = async (
   toCurrency: string
 ): Promise<HistoricalDataPoint[]> => {
   try {
-    const url = `https://foresight-backend-v2.devkitty.pro/api/v2/currency/rates/${fromCurrency}/${toCurrency}/historical`;
+    const url = `http://localhost:8000/api/v2/currency/rates/${fromCurrency}/${toCurrency}/historical`;
     const response = await axios.post(url);
     console.log(response);
 

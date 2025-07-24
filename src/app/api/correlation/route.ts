@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
   try {
     // Build the URL
     const queryString = apiParams.toString();
-    const apiUrl = `https://cews-backend.onrender.com/api/v2/analytics/correlation/${base}/${target}${queryString ? `?${queryString}` : ''}`;
+    const apiUrl = `http://localhost:8000/api/v2/analytics/correlation/${base}/${target}${queryString ? `?${queryString}` : ''}`;
     
     console.log(`Fetching correlation data from: ${apiUrl}`);
     

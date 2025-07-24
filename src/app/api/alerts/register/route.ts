@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // Define the backend API URL using the specific endpoint
-const BACKEND_API_URL = 'http://cews-backend.onrender.com';
+const BACKEND_API_URL = 'http://localhost:8000';
 const ALERT_ENDPOINT = `${BACKEND_API_URL}/api/v2/alerts/register/`;
 
 export async function POST(request: Request) {

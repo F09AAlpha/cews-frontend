@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { BackgroundWrapper } from '@/components/common/BackgroundWrapper';
+import AppHeader from '@/components/common/AppHeader';
 
 // Types for API endpoints
 interface ApiEndpoint {
@@ -312,50 +314,58 @@ export default function MicroservicesPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#1a1a2e] p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-white">Foresight</h1>
-          <Link 
-            href="/" 
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full transition-all duration-300"
-          >
-            Back to Dashboard
-          </Link>
-        </div>
+    <BackgroundWrapper>
+      <AppHeader />
+      <main className="pt-24 px-8 pb-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-bold text-white mb-4">Explore Our Microservices</h2>
+            <p className="text-gray-300 max-w-3xl mx-auto">
+              This API provides currency exchange rates, predictions, volatility analysis, and other financial data. It follows the ADAGE 3.0
+              data model for standardized financial data exchange.
+            </p>
+          </div>
 
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Explore Our Microservices</h2>
-          <p className="text-gray-300 max-w-3xl mx-auto">
-            This API provides currency exchange rates, predictions, volatility analysis, and other financial data. It follows the ADAGE 3.0
-            data model for standardized financial data exchange.
-          </p>
-        </div>
+          {/* Simple Backend URL Display - Centered */}
+          <div className="mb-8 text-white text-center">
+            <h2 className="text-xl mb-2">Backend URL: {BACKEND_API_URL}</h2>
+          </div>
 
-        {/* Simple Backend URL Display - Centered */}
-        <div className="mb-8 text-white text-center">
-          <h2 className="text-xl mb-2">Backend URL: {BACKEND_API_URL}</h2>
-        </div>
-
-        {/* Render all sections */}
-        {SECTIONS.map((section) => (
-          <div key={section.id} className="mb-20">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-semibold text-white">{section.title}</h2>
-            </div>
-            
-            {/* Subsection tabs - with special handling for different section types */}
-            <div className="flex justify-center mb-8">
-              <div className="bg-[#2a2a40]/70 rounded-xl p-1.5 flex min-w-[70%] max-w-[800px]">
-                <div className="flex w-full">
-                  {section.subsections.map((subsection) => {
-                    // Special handling based on section type
-                    if (section.id === 'data-visualization' || section.id === 'alert-system') {
-                      // For Data Visualization and Alert System - center with whitespace-nowrap
-                      return (
-                        <div key={subsection} className="flex justify-center w-full">
+          {/* Render all sections */}
+          {SECTIONS.map((section) => (
+            <div key={section.id} className="mb-20">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-semibold text-white">{section.title}</h2>
+              </div>
+              
+              {/* Subsection tabs - with special handling for different section types */}
+              <div className="flex justify-center mb-8">
+                <div className="bg-[#2a2a40]/70 rounded-xl p-1.5 flex min-w-[70%] max-w-[800px]">
+                  <div className="flex w-full">
+                    {section.subsections.map((subsection) => {
+                      // Special handling based on section type
+                      if (section.id === 'data-visualization' || section.id === 'alert-system') {
+                        // For Data Visualization and Alert System - center with whitespace-nowrap
+                        return (
+                          <div key={subsection} className="flex justify-center w-full">
+                            <button
+                              className={`px-8 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                                activeSubsections[section.id] === subsection
+                                  ? 'bg-indigo-600 text-white'
+                                  : 'text-gray-300 hover:bg-[#3a3a50]/50'
+                              }`}
+                              onClick={() => handleSubsectionChange(section.id, subsection)}
+                            >
+                              {subsection}
+                            </button>
+                          </div>
+                        );
+                      } else {
+                        // For Analytical Model and Data Collection - original style
+                        return (
                           <button
-                            className={`px-8 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                            key={subsection}
+                            className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors mx-1 ${
                               activeSubsections[section.id] === subsection
                                 ? 'bg-indigo-600 text-white'
                                 : 'text-gray-300 hover:bg-[#3a3a50]/50'
@@ -364,63 +374,45 @@ export default function MicroservicesPage() {
                           >
                             {subsection}
                           </button>
-                        </div>
-                      );
-                    } else {
-                      // For Analytical Model and Data Collection - original style
-                      return (
-                        <button
-                          key={subsection}
-                          className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors mx-1 ${
-                            activeSubsections[section.id] === subsection
-                              ? 'bg-indigo-600 text-white'
-                              : 'text-gray-300 hover:bg-[#3a3a50]/50'
-                          }`}
-                          onClick={() => handleSubsectionChange(section.id, subsection)}
-                        >
-                          {subsection}
-                        </button>
-                      );
-                    }
-                  })}
+                        );
+                      }
+                    })}
+                  </div>
                 </div>
               </div>
+              
+              {/* Render endpoints for active subsection */}
+              {renderEndpoints(section.endpoints[activeSubsections[section.id]] || [])}
             </div>
-            
-            {/* Render endpoints for active subsection */}
-            {renderEndpoints(section.endpoints[activeSubsections[section.id]] || [])}
-          </div>
-        ))}
-
-        {/* Toast Notification */}
+          ))}
+        </div>
+        
+        {/* Toast notification */}
         {toast.visible && (
-          <div className="fixed bottom-4 right-4 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg transition-opacity duration-300 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-            </svg>
+          <div className="fixed bottom-5 right-5 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg">
             {toast.message}
           </div>
         )}
-      </div>
-
-      {/* Add custom scrollbar styles */}
-      <style jsx global>{`
-        .custom-scrollbar::-webkit-scrollbar {
-          height: 4px;
-          width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(42, 42, 64, 0.5);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(102, 126, 234, 0.6);
-          border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(102, 126, 234, 0.8);
-        }
-      `}</style>
-    </main>
+        
+        {/* Add custom scrollbar styles */}
+        <style jsx global>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+            width: 4px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(42, 42, 64, 0.5);
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 10px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.8);
+          }
+        `}</style>
+      </main>
+    </BackgroundWrapper>
   );
 } 
